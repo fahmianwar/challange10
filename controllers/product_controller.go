@@ -72,18 +72,11 @@ func CreateProduct(ctx *gin.Context) {
 	}
 
 	product.UserID = userID
-	// user := models.User{}
 
 	if err := db.Debug().Where("id = ?", userID).First(&product.User).Error; err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": "User not found!"})
 		return
 	}
-	// product.User = user
-
-	// product.User.ID = user.ID
-	// product.User.Email = user.Email
-	// product.User.FullName = user.FullName
-
 	err := db.Debug().Create(&product).Error
 
 	if err != nil {
